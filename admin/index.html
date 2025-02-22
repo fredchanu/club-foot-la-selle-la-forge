@@ -2,14 +2,15 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Administration - Connexion</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <title>Administration - AS La Selle La Forge</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
+        // Si l'utilisateur est déjà connecté, rien à faire
         if (!user) {
+          // Au login, rediriger vers /admin (la même page, qui affichera le CMS)
           window.netlifyIdentity.on("login", () => {
             document.location.href = "/admin";
           });
@@ -17,81 +18,16 @@
       });
     }
   </script>
-  <style>
-    body {
-      background: linear-gradient(135deg, #ffe6cc, #ff6600);
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .login-wrapper {
-      width: 90%;
-      max-width: 600px;
-      background: #fff;
-      border-radius: 20px;
-      border: 2px solid #003366;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
-      text-align: center;
-    }
-    .login-wrapper h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.5rem;
-      color: #003366;
-      margin-bottom: 1.5rem;
-    }
-    .login-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      text-align: left;
-    }
-    .login-form label {
-      font-weight: bold;
-      margin-bottom: 0.3rem;
-    }
-    .login-form input {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .btn-submit {
-      background: #003366;
-      color: #fff;
-      border: none;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.3s;
-    }
-    
-    .btn-submit:hover {
-      background: #ff6600;
-    }
-  </style>
 </head>
 <body>
-  <div class="login-wrapper">
-    <h1>Administration</h1>
-    <form class="login-form" action="https://as-lasellelaforge.netlify.app/admin/" method="POST">
-      <div class="form-group">
-        <label for="login">Login :</label>
-        <input type="text" id="login" name="login" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      <button type="submit" class="btn-submit">Valider</button>
-    </form>
+  <div class="admin-wrapper">
+    <header class="admin-header">
+      <h1>Administration</h1>
+    </header>
+    <main>
+      <!-- Netlify CMS se chargera ici si l'utilisateur est connecté -->
+    </main>
   </div>
 </body>
 </html>
+
