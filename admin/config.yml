@@ -2,8 +2,8 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "assets/images/uploads"   # Où seront stockées les images
-public_folder: "/assets/images/uploads" # Chemin public des images
+media_folder: "assets/images/uploads"   # Emplacement des images uploadées
+public_folder: "/assets/images/uploads"   # Chemin public
 
 collections:
   - name: "actualites"
@@ -28,11 +28,11 @@ collections:
       - { name: "date", label: "Date", widget: "datetime" }
       - { name: "heure", label: "Heure", widget: "string" }
       - { name: "equipe", label: "Équipe", widget: "string" }
-      - {
-          name: "joueurs",
-          label: "Joueurs convoqués",
-          widget: "list",
-          field: { name: "nom", label: "Nom du joueur", widget: "string" }
+      - { 
+          name: "joueurs", 
+          label: "Joueurs convoqués", 
+          widget: "list", 
+          field: { name: "nom", label: "Nom du joueur", widget: "string" } 
         }
 
   - name: "galerie"
@@ -43,9 +43,19 @@ collections:
     fields:
       - { name: "title", label: "Titre du match", widget: "string" }
       - { name: "resume", label: "Résumé du match", widget: "markdown" }
-      - {
-          name: "photos",
-          label: "Photos",
-          widget: "list",
-          field: { name: "photo", label: "Photo", widget: "image" }
+      - { 
+          name: "photos", 
+          label: "Photos", 
+          widget: "list", 
+          field: { name: "photo", label: "Photo", widget: "image" } 
         }
+
+  - name: "calendrier"
+    label: "Calendrier / Matchs"
+    folder: "content/calendrier"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: "title", label: "Titre", widget: "string" }
+      - { name: "date", label: "Date", widget: "datetime" }
+      - { name: "match_details", label: "Détails du match", widget: "markdown" }
