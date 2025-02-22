@@ -1,0 +1,637 @@
+/* RESET DE BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    color: #333;
+    background: linear-gradient(135deg, #ffe6cc, #ff6600);
+    background-attachment: fixed;
+    transition: background 0.5s ease-in-out;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  h1, h2, h3, .logo-hero {
+    font-family: 'Bebas Neue', sans-serif;
+  }
+  body, p, li, input, button {
+    font-family: 'Roboto', sans-serif;
+  }
+  .footer {
+    background: #003366;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+  }
+/*--------------------------------------------------------*/
+/*--------------------------------------------------------*/
+  /* HEADER & NAV */
+  .header-fix {
+    width: 100%;
+    position: fixed;
+    background: #003366; /* Bleu principal */
+    padding: 20px 0;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    text-align: center; /* Pour centrer le menu */
+  }
+  /* BOUTON CONVOCATION */
+  .btn-convocation {
+    background: #ff6600;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    color: #fff !important;
+  }
+  /* Menu centré */
+  .menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block; /* Pour que le menu se centre */
+  }
+  .menu ul li {
+    display: inline-block;
+    margin: 0 15px;
+  }
+  .menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: opacity 0.3s;
+  }
+  .menu ul li a:hover {
+    opacity: 0.7;
+  }
+  .login-link {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .login-icon {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .login-icon i {
+    color: #003366;
+    font-size: 20px;
+  }
+  .login-link:hover .login-icon {
+    background: #ff6600; /* couleur orange */
+    transition: background 0.3s ease;
+  }
+
+/*--------------------------------------------------------*/
+/*--------------------------------------------------------*/
+  
+  /*--- SECTION HERO --- */
+  .hero {
+    position: relative;
+    width: 100%;
+    top: 0; 
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 4rem; /* pour laisser la place au header */
+  }
+  .hero-content {
+    text-align: center;
+    color: #fff;
+  }
+  .logo-hero {
+    width: 150px;
+    animation: glow 2s infinite alternate;
+  }
+  @keyframes glow {
+    from { filter: drop-shadow(0 0 5px #fff); }
+    to { filter: drop-shadow(0 0 20px #fff); }
+  }
+  .hero h1 {
+    font-size: 3.5rem;
+    margin-top: 1rem;
+  }
+  .hero-subtitle {
+    margin: 1rem 0;
+    font-size: 1.5rem;
+  }
+  .social-frame {
+    display: inline-block;
+    padding: 20px;
+    border: 2px solid #003366;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    animation: glow 2s infinite alternate;
+  }
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 10px;
+  }
+  .social-icons a {
+    color: #003366;
+    font-size: 2rem;
+    transition: transform 0.3s, color 0.3s;
+    text-decoration: none;
+  }
+  .social-icons a:hover {
+    transform: scale(1.1);
+    color: #ff6600;
+  }
+  .follow-text {
+    font-family: 'Roboto', sans-serif;
+    color: #003366;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+/*--------------------------------------------------------*/
+/*--------------------------------------------------------*/
+
+  /* SECTION CALENDRIER ACTUALITES */
+  .events-news-container {
+    display: flex;
+    gap: 20px;
+    padding: 2rem;
+  }
+  #calendar, 
+  .actualites {
+  flex: 1;
+  }
+#calendar {
+    min-height: 500px;
+    background: #f9f9f9;
+    border: 2px solid #003366;
+    border-radius: 20px;
+    padding: 10px;
+  }
+  .actualites {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px;
+    border: 2px solid #003366;
+  }
+  .actualites h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+  .actu-item {
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .actu-item:hover {
+    transform: translateY(-5px);
+  }
+  .actu-item h3 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  .actu-content {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .actu-content img {
+    width: 200px;   /* Ajustez cette valeur pour une image plus petite */
+    height: auto;
+    border-radius: 10px;
+  }
+  .actu-content p {
+    margin: 0;
+    flex: 1;
+    font-size: 1rem;
+  }
+
+/*--------------------------------------------------------*/
+/*--------------------------------------------------------*/
+
+  /* CLUB SECTION */
+  .club-home {
+    background: #f9f9f9;
+    padding: 2rem;
+    border-radius: 20px;
+    margin: 2rem auto;
+    max-width: 1200px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 2px solid #003366;
+  }
+  .club-home h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #003366;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .club-info p {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  .club-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-item span {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ff6600;
+  }
+  .stat-item p {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    font-weight: bold;
+    margin: 0;
+  }
+  .club-more {
+    display: inline-block;
+    background: #003366;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    transition: background 0.3s;
+  }
+  .club-more:hover {
+    background: #ff6600;
+  }
+  
+/*--------------------------------------------------------*/
+/*--------------------------------------------------------*/
+
+/* Page Galerie */
+.page-galerie {
+  flex: 1;
+}
+/* Section Galerie globale */
+.gallery-section {
+  padding: 2rem;
+  background: #fff;
+  margin: 2rem auto;
+  max-width: 1200px;
+  border-radius: 20px;
+  border: 2px solid #003366;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+/* Titre principal de la page Galerie */
+.gallery-section h1 {
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: #003366;
+  margin-bottom: 1.5rem;
+}
+/* Conteneur des albums */
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+/* Style de chaque album */
+.album {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+/* Titre de l'album */
+.album-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: #003366;
+  margin-bottom: 0.5rem;
+}
+/* Résumé de l'album */
+.album-summary {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+/* Conteneur des photos – LightGallery */
+.album-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+/* Style des images */
+.album-photos img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.album-photos img:hover {
+  transform: scale(1.05);
+}
+
+/*--------------------------------------------------------*/
+/*--------------------------------------------------------*/
+
+/* Page Club */
+.main-content {
+  flex: 1; 
+  padding-top: 80px;
+}
+.club-section {
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 20px;
+  margin: 2rem auto;
+  max-width: 1200px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 2px solid #003366;
+}
+.club-section h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #003366;
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+.club-info h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #003366;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.club-info p {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  margin-bottom: 1.6rem;
+  text-align: justify;
+}
+/* Statistiques */
+.club-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-item span {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ff6600;
+}
+
+.stat-item p {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  margin: 0;
+}
+
+/* Equipes & Staff */
+.club-teams h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #003366;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.staff-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.staff-item {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  width: 200px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.staff-item img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.staff-item h3 {
+  margin: 0.5rem 0;
+  font-family: 'Bebas Neue', sans-serif;
+  color: #003366;
+}
+
+.staff-item p {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+
+/* Page Contact */
+
+.contact-section {
+  padding: 2rem;
+  background: #fff;
+  margin: 2rem auto;
+  border: 2px solid #003366;
+  max-width: 1200px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.contact-section h1 {
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: #003366;
+  margin-bottom: 1.5rem;
+}
+
+.contact-container {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* --- Formulaire de contact --- */
+.contact-form {
+  flex: 1;
+  min-width: 300px;
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group label {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-submit {
+  background: #003366;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  transition: background 0.3s;
+}
+
+.btn-submit:hover {
+  background: #ff6600;
+}
+
+/* --- Informations de contact du club --- */
+.contact-info {
+  flex: 1;
+  min-width: 300px;
+}
+
+.contact-info h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #003366;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.contact-item {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+.contact-item h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #003366;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-item p {
+  margin: 0.3rem 0;
+}
+/* --- Carte pour l'adresse --- */
+.contact-map {
+  margin-top: 2rem;
+}
+
+.contact-map h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #003366;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.map-container {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.map-container iframe {
+  width: 100%;
+  border: 0;
+  border-radius: 20px;
+  min-height: 300px;
+}
+
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+
+/* Page convocation */
+.convocation-section {
+  background: #fff;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+  border-radius: 20px;
+  border: 2px solid #003366;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.convocation-section h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: #003366;
+  margin-bottom: 1.5rem;
+}
+/* --- Style de la liste des convocations --- */
+.convocation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+/* Style pour chaque item de convocation */
+.convocation-item {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: left;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+.convocation-item h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: #003366;
+  margin-bottom: 0.5rem;
+}
+.convocation-item p {
+  font-family: 'Roboto', sans-serif;
+  margin: 0.5rem 0;
+  color: #333;
+}

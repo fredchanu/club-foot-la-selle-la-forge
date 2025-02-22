@@ -1,0 +1,51 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/images/uploads"   # Où seront stockées les images
+public_folder: "/assets/images/uploads" # Chemin public des images
+
+collections:
+  - name: "actualites"
+    label: "Actualités"
+    folder: "content/actualites"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: "title", label: "Titre", widget: "string" }
+      - { name: "date", label: "Date", widget: "datetime" }
+      - { name: "excerpt", label: "Extrait", widget: "text" }
+      - { name: "body", label: "Contenu", widget: "markdown" }
+      - { name: "image", label: "Image", widget: "image" }
+
+  - name: "convocations"
+    label: "Convocations"
+    folder: "content/convocations"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: "title", label: "Titre", widget: "string" }
+      - { name: "date", label: "Date", widget: "datetime" }
+      - { name: "heure", label: "Heure", widget: "string" }
+      - { name: "equipe", label: "Équipe", widget: "string" }
+      - {
+          name: "joueurs",
+          label: "Joueurs convoqués",
+          widget: "list",
+          field: { name: "nom", label: "Nom du joueur", widget: "string" }
+        }
+
+  - name: "galerie"
+    label: "Galerie"
+    folder: "content/galerie"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: "title", label: "Titre du match", widget: "string" }
+      - { name: "resume", label: "Résumé du match", widget: "markdown" }
+      - {
+          name: "photos",
+          label: "Photos",
+          widget: "list",
+          field: { name: "photo", label: "Photo", widget: "image" }
+        }

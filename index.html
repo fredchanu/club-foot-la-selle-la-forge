@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AS La Selle La Forge - Accueil</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+  <!-- FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+</head>
+
+
+<body>
+  <!-- HEADER / MENU DE NAVIGATION -->
+  <header class="header-fix">
+    <div class="header-container">
+    <nav class="menu">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
+        <li><a href="club.html">Club</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a class="btn-convocation" href="convocations.html">Convocation</a>
+        </li>
+      </ul>
+    </nav>
+    <a href="admin/index.html" class="login-link" target="_blank">
+        <div class="login-icon">
+          <i class="fa fa-user"></i>
+        </div>
+      </a>
+  </header>
+
+
+  <!-- SECTION HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <img src="assets/images/logo.png" alt="Logo AS La Selle La Forge" class="logo-hero" />
+      <h1>AS La Selle La Forge</h1>
+      <p class="hero-subtitle">Le football, une passion qui nous unit</p>
+      <div class="social-frame">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/votrepage" target="_blank" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/votrecompte" target="_blank" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+        <div class="follow-text">Suivez-nous</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION ACTUALITES -->
+  <section class="events-news-container">
+    <div id="calendar"></div>
+
+    <div class="actualites">
+    <h2>Dernières actualités</h2>
+      <article class="actu-item">
+        <h3>Coupe de l'orne futsal</h3>
+        <div class="actu-content">
+            <img src="assets/images/sample1.jpg" alt="Actu 1" />  
+            <p>🏆 Clap de fin pour le tournoi futsal ! 🏆<br>
+                <br>Après deux jours de compétition intense et conviviale, le tournoi s’achève sur une belle victoire de l' A.S. La Selle la forge en U15  🥇 ! Le @sa_mamers décroche une belle deuxième place 🥈 et le FC Argentan complète le podium en terminant troisième 🥉.
+                Un grand merci à tous les clubs participants pour leur présence et leur fair-play, ainsi qu’aux joueurs pour leur excellent état d’esprit tout au long du tournoi. L’ambiance a été au rendez-vous, et c’est aussi grâce à vous tous ! <br>
+                <br>Bravo à toutes les équipes, et à très bientôt pour de nouveaux rendez-vous sportifs ! </p> 
+        </div>
+      </article>
+      <article class="actu-item">
+        <h3>Pauline en route vers l'équipe de Normandie !⚽</h3>
+        <div class="actu-content">
+            <img src="assets/images/sample2.jpg" alt="Actu 2" />  
+            <p>A nouveau notre jeune licenciée a été convoqué pour participer au stage de perfectionnement en vue de la sélection en équipe de Normandie. Stage qui s'est déroulé dans les infrastructures de la ligue de Normandie à Lisieux, en présence de 27 autres jeunes filles, venant des clubs comme le Havre, le SM Caen, Quevilly. Devant ce parcours déjà exceptionnel , seule représentante Ornaise, nous attendons la suite pour savoir si Pauline sera convoquée pour intégrer l'équipe de Normandie afin de participer aux rencontres inter-régionale.  
+                Le club est très fier d'avoir sa licenciée représenter notre club à ce niveau et lui souhaite la réussite pour la suite. <br>
+                <br>Bravo Pauline <br>.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SECTION CLUB (RAPIDE) -->
+  <section class="club-home">
+    <h2>Le Club</h2>
+    <div class="club-info">
+      <p>
+        AS La Selle La Forge, c’est avant tout une histoire de passion, d’engagement et de réussite sur le terrain.
+      </p>
+    </div>
+    <div class="club-stats">
+      <div class="stat-item">
+        <span>300</span>
+        <p>Licenciés</p>
+      </div>
+      <div class="stat-item">
+        <span>9</span>
+        <p>Équipes</p>
+      </div>
+      <div class="stat-item">
+        <span>7</span>
+        <p>Dirigeants</p>
+      </div>
+      <div class="stat-item">
+        <span>8</span>
+        <p>Récompenses</p>
+      </div>
+    </div>
+    <a href="club.html" class="club-more">En savoir plus</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 AS La Selle La Forge. Tous droits réservés.</p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
