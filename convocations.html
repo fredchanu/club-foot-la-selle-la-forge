@@ -39,23 +39,72 @@
   <main class="main-content">
     <section class="convocation-section">
       <h1>Convocations</h1>
-      <div class="convocation-container">
-        <div class="convocation-list">
-          <article class="convocation-item">
-            <h3>Match : Équipe A vs Équipe B</h3>
-            <p><strong>Date :</strong> 22/02/2025</p>
-            <p><strong>Heure :</strong> 14h00</p>
-            <p><strong>Joueurs convoqués :</strong> Joueur1, Joueur2, Joueur3...</p>
-          </article>
-          <article class="convocation-item">
-            <h3>Match : Équipe C vs Équipe D</h3>
-            <p><strong>Date :</strong> 23/02/2025</p>
-            <p><strong>Heure :</strong> 16h00</p>
-            <p><strong>Joueurs convoqués :</strong> JoueurA, JoueurB, JoueurC...</p>
-          </article>
-          <!-- Ajoutez d'autres items selon vos besoins -->
-        </div>
-      </div>
+      <div id="convocation-container"></div>
+      <script>
+        // Chemin vers le manifeste JSON des convocations
+        const manifestUrl = '/convocations.json';
+    
+        // Sélectionnez le conteneur où les convocations seront injectées
+        const container = document.getElementById('convocations-container');
+    
+        // Charger le manifeste JSON
+        fetch(manifestUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Erreur réseau lors du chargement du manifeste JSON');
+            }
+            return response.json();
+          })
+          .then(convocations => {
+            // Pour chaque convocation listée dans le manifeste
+            convocations.forEach(convocation => {
+              // Créez un élément article pour la convocation
+              const convElem = document.createElement('article');
+              convElem.className = 'convocation-item';
+    
+              // Ajoutez le titre de la convocation
+              const titleElem = document.createElement('h3');
+              titleElem.textContent = convocation.title;
+              convElem.appendChild(titleElem);
+    
+              // Charger le fichier JSON de la convocation
+              fetch(convocation.file)
+                .then(resp => {
+                  if (!resp.ok) {
+                    throw new Error(`Erreur réseau lors du chargement du fichier ${convocation.file}`);
+                  }
+                  return resp.json();
+                })
+                .then(convData => {
+                  // Préparer le contenu HTML pour la convocation
+                  // Supposons que convData contient : date, heure, equipe, et joueurs (tableau)
+                  const contentHTML = `
+                    <p><strong>Date :</strong> ${convData.date}</p>
+                    <p><strong>Heure :</strong> ${convData.heure}</p>
+                    <p><strong>Équipe :</strong> ${convData.equipe}</p>
+                    <p><strong>Joueurs convoqués :</strong> ${Array.isArray(convData.joueurs) ? convData.joueurs.join(', ') : convData.joueurs}</p>
+                  `;
+                  const contentElem = document.createElement('div');
+                  contentElem.innerHTML = contentHTML;
+                  convElem.appendChild(contentElem);
+                })
+                .catch(err => {
+                  console.error('Erreur lors du chargement de la convocation:', err);
+                  const errorElem = document.createElement('p');
+                  errorElem.textContent = 'Erreur lors du chargement du contenu.';
+                  convElem.appendChild(errorElem);
+                })
+                .finally(() => {
+                  // Ajoutez la convocation complète au conteneur principal
+                  container.appendChild(convElem);
+                });
+            });
+          })
+          .catch(error => {
+            console.error('Erreur lors du chargement du manifeste:', error);
+            container.innerHTML = '<p>Erreur lors du chargement des convocations.</p>';
+          });
+      </script>
     </section>
   </main>
 

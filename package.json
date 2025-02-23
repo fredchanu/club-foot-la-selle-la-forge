@@ -1,7 +1,7 @@
 {
-    "scripts": {
-      "build:manifest": "node generate-manifest.js",
-      "build": "npm run build:manifest && echo 'No build step'"
-    }
+  "scripts": {
+    "build:manifest": "node generate-manifest.js",
+    "build:manifest:conv": "node generate-convocations-manifest.js",
+    "build": "npm run build:manifest && npm run build:manifest:conv && echo 'No build step'"
   }
-  
+}
