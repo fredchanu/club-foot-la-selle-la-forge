@@ -559,3 +559,184 @@
   color: #333;
 }
 
+
+/*-------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------*/
+
+
+/* Responsive pour tablettes (max-width: 768px) */
+@media (max-width: 768px) {
+  body {
+    padding: 0 10px;
+  }
+  .header-container {
+    padding: 0 10px;
+  }
+  /* Menu vertical sur tablette */
+  .menu ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .menu ul li {
+    margin: 5px 0;
+  }
+  
+  /* Ajustement des sections principales */
+  .events-news-container,
+  .club-home,
+  .galerie-section,
+  .contacts-section,
+  .convocation-section,
+  .club-section {
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 100%;
+  }
+  
+  /* Réduction des tailles de police */
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.8rem;
+  }
+  h3 {
+    font-size: 1.4rem;
+  }
+  
+  /* Pour les containers flex, passer en colonne si besoin */
+  .actu-content,
+  .contacts-container,
+  .staff-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Ajustement de la grille pour la galerie */
+  .galerie-photos {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  
+  /* Ajustement de la hauteur du calendrier */
+  #calendar {
+    min-height: 400px;
+  }
+}
+
+/* Responsive pour mobiles (max-width: 480px) */
+@media (max-width: 480px) {
+  body {
+    padding: 0 5px;
+  }
+  .header-container {
+    padding: 0 5px;
+  }
+  .menu ul {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .menu ul li {
+    margin: 5px 0;
+  }
+  
+  /* Réduction des espacements pour les sections */
+  .events-news-container,
+  .club-home,
+  .galerie-section,
+  .contacts-section,
+  .convocation-section,
+  .club-section {
+    padding: 0.5rem;
+    margin: 0.5rem auto;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+  
+  /* Flex containers en colonne */
+  .actu-content,
+  .contacts-container,
+  .staff-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Grille pour la galerie sur mobile */
+  .galerie-photos {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+  
+  /* Ajustement de la hauteur du calendrier */
+  #calendar {
+    min-height: 300px;
+  }
+}
+/* Styles de base pour le burger menu */
+.burger-menu {
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none; /* Masqué par défaut sur desktop */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+}
+
+/* Les 3 barres du burger */
+.burger-menu span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #003366;
+  margin: 4px 0;
+  border-radius: 1px;
+}
+
+/* Menu responsive : masquer le menu classique sur mobile */
+@media (max-width: 768px) {
+  .burger-menu {
+    display: flex;
+  }
+  /* Masquer le menu horizontal par défaut */
+  .menu ul {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    background: #003366;
+    position: absolute;
+    top: 60px; /* Ajustez selon la hauteur du header */
+    right: 0;
+    width: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 19;
+  }
+  .menu ul li {
+    margin: 0;
+  }
+  .menu ul li a {
+    color: #fff;
+    padding: 10px;
+    display: block;
+  }
+  /* Optionnel : afficher le menu quand une classe "active" est ajoutée */
+  .menu ul.active {
+    display: flex;
+  }
+}
