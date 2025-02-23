@@ -72,6 +72,65 @@
 <!-- SECTION ACTUALITES -->
 <section class="events-news-container">
   <div id="calendar"></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'fr',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        }
+      });
+
+      // Charger le manifeste JSON du calendrier
+      fetch('/calendrier.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Erreur réseau lors du chargement du manifeste calendrier');
+          }
+          return response.json();
+        })
+        .then(manifest => {
+          console.log("Manifest calendrier chargé:", manifest);
+          // Pour chaque événement listé dans le manifeste, charger le fichier JSON correspondant
+          let eventPromises = manifest.map(entry => {
+            return fetch(entry.file)
+              .then(resp => {
+                if (!resp.ok) {
+                  throw new Error('Erreur réseau lors du chargement de l\'événement ' + entry.file);
+                }
+                return resp.json();
+              })
+              .then(eventData => {
+                // Transformer l'événement pour FullCalendar
+                return {
+                  title: eventData.title,
+                  start: eventData.date, // Assurez-vous que la date est au format ISO (ex: 2025-02-22T00:00:00Z)
+                  // Vous pouvez ajouter d'autres propriétés, par exemple une description:
+                  description: eventData.match_details
+                };
+              });
+          });
+
+          Promise.all(eventPromises)
+            .then(events => {
+              console.log("Événements chargés:", events);
+              // Ajouter les événements à FullCalendar
+              calendar.addEventSource(events);
+              calendar.render();
+            })
+            .catch(err => {
+              console.error('Erreur lors du traitement des événements:', err);
+            });
+        })
+        .catch(error => {
+          console.error('Erreur lors du chargement du manifeste calendrier:', error);
+        });
+    });
+  </script>
 
   <div class="actualites">
     <h2>Dernières actualités</h2>
