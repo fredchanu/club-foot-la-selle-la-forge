@@ -70,17 +70,86 @@
     </div>
   </section>
 
-  <!-- SECTION ACTUALITES -->
-  <section class="events-news-container">
-    <div id="calendar"></div>
+<!-- SECTION ACTUALITES -->
+<section class="events-news-container">
+  <div id="calendar"></div>
 
-    <div class="actualites">
+  <div class="actualites">
     <h2>Dernières actualités</h2>
-      <article class="actu-item">
-        </div>
-      </article>
-    </div>
-  </section>
+    <div id="actualites-container"></div>
+    <script>
+      // Chemin vers votre manifeste JSON
+      const manifestUrl = '/articles.json';
+
+      // Sélectionnez le conteneur où les articles seront injectés
+      const container = document.getElementById('actualites-container');
+
+      // Charger le manifeste JSON
+      fetch(manifestUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Erreur réseau lors du chargement du manifeste JSON');
+          }
+          return response.json();
+        })
+        .then(articles => {
+          // Pour chaque article listé dans le manifeste
+          articles.forEach(article => {
+            // Créez un élément article
+            const articleElem = document.createElement('article');
+            articleElem.className = 'actu-item';
+            
+            // Ajoutez le titre en haut de l'article
+            const titleElem = document.createElement('h3');
+            titleElem.textContent = article.title;
+            articleElem.appendChild(titleElem);
+
+            // Charger le fichier JSON de l'article
+            fetch(article.file)
+              .then(resp => {
+                if (!resp.ok) {
+                  throw new Error(`Erreur réseau lors du chargement du fichier ${article.file}`);
+                }
+                return resp.json();
+              })
+              .then(articleData => {
+                // Préparez le code pour l'image (si présente)
+                let imageHTML = '';
+                if (articleData.image) {
+                  imageHTML = `<img src="${articleData.image}" alt="${articleData.title}">`;
+                }
+                const textHTML = `<div class="actu-content-p">${marked.parse(articleData.body)}</div>`;
+                
+                // Créez un conteneur pour l'image et le texte côte à côte
+                const contentHTML = `<div class="actu-content">
+                                       ${imageHTML}
+                                       ${textHTML}
+                                     </div>`;
+                
+                // Créez un élément pour le contenu et l'ajoutez à l'article
+                const contentElem = document.createElement('div');
+                contentElem.innerHTML = contentHTML;
+                articleElem.appendChild(contentElem);
+              })
+              .catch(err => {
+                console.error('Erreur lors du chargement de l\'article:', err);
+                const errorElem = document.createElement('p');
+                errorElem.textContent = 'Erreur lors du chargement du contenu.';
+                articleElem.appendChild(errorElem);
+              })
+              .finally(() => {
+                // Ajoutez l'article complet au conteneur principal
+                container.appendChild(articleElem);
+              });
+          });
+        })
+        .catch(error => {
+          console.error('Erreur lors du chargement du manifeste:', error);
+          container.innerHTML = '<p>Erreur lors du chargement des actualités.</p>';
+        });
+    </script>      
+  </div>
+</section>
 
   <!-- SECTION CLUB (RAPIDE) -->
   <section class="club-home">

@@ -10,6 +10,7 @@ collections:
     label: "Actualités"
     folder: "content/actualites"
     create: true
+    format: json
     fields:
       - { name: "title", label: "Titre", widget: "string" }
       - { name: "body", label: "Contenu", widget: "markdown" }
@@ -19,6 +20,7 @@ collections:
     label: "Convocations"
     folder: "content/convocations"
     create: true
+    format: json
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { name: "title", label: "Titre", widget: "string" }
@@ -36,6 +38,7 @@ collections:
     label: "Galerie"
     folder: "content/galerie"
     create: true
+    format: json
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { name: "title", label: "Titre du match", widget: "string" }
@@ -51,6 +54,7 @@ collections:
     label: "Calendrier / Matchs"
     folder: "content/calendrier"
     create: true
+    format: json
     slug: "{{year}}-{{month}}-{{day}}"
     fields:
       - { name: "title", label: "Titre", widget: "string" }
