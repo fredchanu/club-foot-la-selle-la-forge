@@ -291,6 +291,7 @@
 /* Page Galerie */
 .page-galerie {
   flex: 1;
+  padding-top: 80px;
 }
 .galerie-section {
   background: #fff;
