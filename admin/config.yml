@@ -24,7 +24,7 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { name: "title", label: "Titre", widget: "string" }
-      - { name: "date", label: "Date", widget: "datetime" }
+      - { name: "date", label: "Date", widget: "string" }
       - { name: "heure", label: "Heure", widget: "string" }
       - { name: "equipe", label: "Équipe", widget: "string" }
       - { 
