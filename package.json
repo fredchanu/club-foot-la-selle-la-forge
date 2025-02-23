@@ -1,0 +1,7 @@
+{
+    "scripts": {
+      "build:manifest": "node generate-manifest.js",
+      "build": "npm run build:manifest && echo 'No build step'"
+    }
+  }
+  
