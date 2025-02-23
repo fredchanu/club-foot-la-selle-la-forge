@@ -761,7 +761,7 @@
     background: #003366;
     position: absolute;
     top: 20px; /* Ajustez selon la hauteur du header */
-    right: 0;
+    left: 10px;
     width: 200px;
     padding: 10px;
     border-radius: 5px;
