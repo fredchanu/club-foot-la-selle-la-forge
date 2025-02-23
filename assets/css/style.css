@@ -628,3 +628,7 @@
   margin: 0.5rem 0;
   color: #333;
 }
+.convocations-section, #convocations-container, .convocation-item {
+  border: 5px solid red;
+  min-height: 20px;
+}
