@@ -25,7 +25,6 @@
       });
     }
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
@@ -118,7 +117,7 @@
                 if (articleData.image) {
                   imageHTML = `<img src="${articleData.image}" alt="${articleData.title}">`;
                 }
-                const textHTML = `<div class="actu-content-p">${marked.parse(articleData.body)}</div>`;
+                const textHTML = `<div class="actu-content-p">${articleData.body}</div>`;
                 
                 // Créez un conteneur pour l'image et le texte côte à côte
                 const contentHTML = `<div class="actu-content">
