@@ -62,3 +62,18 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   });
+
+//--------------------------------------------------------//
+//--------------------------------------------------------//
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const burger = document.querySelector('.burger-menu');
+    const menuUl = document.querySelector('.menu ul');
+
+    if(burger && menuUl) {
+      burger.addEventListener('click', function() {
+        menuUl.classList.toggle('active');
+      });
+    }
+  });
+
