@@ -10,11 +10,8 @@ collections:
     label: "Actualités"
     folder: "content/actualites"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { name: "title", label: "Titre", widget: "string" }
-      - { name: "date", label: "Date", widget: "datetime" }
-      - { name: "excerpt", label: "Extrait", widget: "text" }
       - { name: "body", label: "Contenu", widget: "markdown" }
       - { name: "image", label: "Image", widget: "image" }
 
@@ -54,8 +51,8 @@ collections:
     label: "Calendrier / Matchs"
     folder: "content/calendrier"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}"
     fields:
       - { name: "title", label: "Titre", widget: "string" }
       - { name: "date", label: "Date", widget: "datetime" }
-      - { name: "match_details", label: "Détails du match", widget: "markdown" }
+  
