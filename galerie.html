@@ -36,64 +36,96 @@
   </header>
 
   <main class="page-galerie">
-    <h1>Galerie</h1>
-    <p>Découvrez les photos de nos matchs et événements.</p>
-
-    <section class="gallery-section">
-      <h1>Galerie</h1>
-      <div class="gallery-container">
-        <article class="album">
-          <h2 class="album-title">Match du 10/02/2025</h2>
-          <p class="album-summary">
-            Un match disputé sous la pluie, où l'équipe a montré un bel esprit de solidarité.
-          </p>
-          <div class="album-photos">
-            <a href="assets/images/sample-match1.jpg">
-              <img src="assets/images/sample-match1.jpg" alt="Photo 1">
-            </a>
-            <a href="assets/images/sample-match2.jpg">
-              <img src="assets/images/sample-match2.jpg" alt="Photo 2">
-            </a>
-            <a href="assets/images/sample-match3.jpg">
-              <img src="assets/images/sample-match3.jpg" alt="Photo 3">
-            </a>
-          </div>
-        </article>
-        <article class="album">
-          <h2 class="album-title">Match du 10/02/2025</h2>
-          <p class="album-summary">
-            Un match disputé sous la pluie, où l'équipe a montré un bel esprit de solidarité.
-          </p>
-          <div class="album-photos">
-            <a href="assets/images/sample-match1.jpg">
-              <img src="assets/images/sample-match1.jpg" alt="Photo 1">
-            </a>
-            <a href="assets/images/sample-match2.jpg">
-              <img src="assets/images/sample-match2.jpg" alt="Photo 2">
-            </a>
-            <a href="assets/images/sample-match3.jpg">
-              <img src="assets/images/sample-match3.jpg" alt="Photo 3">
-            </a>
-          </div>
-        </article>
-        <article class="album">
-          <h2 class="album-title">Match du 10/02/2025</h2>
-          <p class="album-summary">
-            Un match disputé sous la pluie, où l'équipe a montré un bel esprit de solidarité.
-          </p>
-          <div class="album-photos">
-            <a href="assets/images/sample-match1.jpg">
-              <img src="assets/images/sample-match1.jpg" alt="Photo 1">
-            </a>
-            <a href="assets/images/sample-match2.jpg">
-              <img src="assets/images/sample-match2.jpg" alt="Photo 2">
-            </a>
-            <a href="assets/images/sample-match3.jpg">
-              <img src="assets/images/sample-match3.jpg" alt="Photo 3">
-            </a>
-          </div>
-        </article>
-      </div>
+    <section class="galerie-section">
+      <h2>Galerie</h2>
+      <div id="galerie-container"></div>
+      <script>
+        // Chemin vers le manifeste JSON des galeries
+        const manifestUrl = '/galerie.json';
+        // Sélectionnez le conteneur où les galeries seront injectées
+        const container = document.getElementById('galerie-container');
+      
+        // Charger le manifeste JSON
+        fetch(manifestUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Erreur réseau lors du chargement du manifeste galerie');
+            }
+            return response.json();
+          })
+          .then(galeries => {
+            console.log("Manifest galerie chargé:", galeries);
+            // Pour chaque galerie listée dans le manifeste
+            galeries.forEach(gallery => {
+              // Créez un élément article pour la galerie
+              const galleryElem = document.createElement('article');
+              galleryElem.className = 'galerie-item';
+              
+              // Ajoutez le titre de la galerie
+              const titleElem = document.createElement('h3');
+              titleElem.textContent = gallery.title;
+              galleryElem.appendChild(titleElem);
+              
+              // Charger le fichier JSON de la galerie
+              fetch(gallery.file)
+                .then(resp => {
+                  if (!resp.ok) {
+                    throw new Error(`Erreur réseau lors du chargement du fichier ${gallery.file}`);
+                  }
+                  return resp.json();
+                })
+                .then(galleryData => {
+                  console.log("Données de galerie:", galleryData);
+                  // Préparer le résumé de la galerie
+                  // Ici, on suppose que galleryData.resume contient déjà du HTML (ou du Markdown à convertir si nécessaire)
+                  const resumeHTML = `<div class="galerie-resume">${galleryData.resume}</div>`;
+                  
+                  // Créer le conteneur des photos qui sera utilisé par LightGallery
+                  let photosHTML = '<div class="galerie-photos">';
+                  // Supposons que galleryData.photos est un tableau d'images (soit des objets { photo: "chemin" }, soit des chaînes)
+                  galleryData.photos.forEach(item => {
+                    // Si item est un objet, utilisez item.photo, sinon utilisez directement item
+                    const photoPath = (typeof item === 'object' && item.photo) ? item.photo : item;
+                    // Chaque image est enveloppée dans un lien pour LightGallery
+                    photosHTML += `<a href="${photoPath}" data-lg-size="1400-933">
+                                     <img src="${photoPath}" alt="${galleryData.title}">
+                                   </a>`;
+                  });
+                  photosHTML += '</div>';
+                  
+                  // Concaténer le résumé et les photos
+                  const contentHTML = resumeHTML + photosHTML;
+                  const contentElem = document.createElement('div');
+                  contentElem.innerHTML = contentHTML;
+                  galleryElem.appendChild(contentElem);
+                  
+                  // Initialiser LightGallery sur le conteneur des photos
+                  const lgContainer = contentElem.querySelector('.galerie-photos');
+                  if (lgContainer) {
+                    lightGallery(lgContainer, {
+                      plugins: [lgThumbnail],
+                      speed: 500,
+                      licenseKey: '0000-0000-000-0000' // Remplacez par votre clé si nécessaire ou laissez vide pour le test
+                    });
+                  }
+                })
+                .catch(err => {
+                  console.error('Erreur lors du chargement de la galerie:', err);
+                  const errorElem = document.createElement('p');
+                  errorElem.textContent = 'Erreur lors du chargement du contenu de la galerie.';
+                  galleryElem.appendChild(errorElem);
+                })
+                .finally(() => {
+                  // Une fois la galerie traitée, ajoutez-la au conteneur principal
+                  container.appendChild(galleryElem);
+                });
+            });
+          })
+          .catch(error => {
+            console.error('Erreur lors du chargement du manifeste galerie:', error);
+            container.innerHTML = '<p>Erreur lors du chargement de la galerie.</p>';
+          });
+      </script>      
     </section>
   </main>
 
@@ -102,6 +134,7 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.umd.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.umd.js"></script>
 </body>
