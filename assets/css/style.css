@@ -563,11 +563,43 @@
 /*-------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------*/
 
+/* Styles de base pour le burger menu */
+.burger-menu {
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none; /* Masqué par défaut sur desktop */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+}
+
+/* Les 3 barres du burger */
+.burger-menu span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #003366;
+  margin: 4px 0;
+  border-radius: 1px;
+}
+
+/*-------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------*/
+
 
 /* Responsive pour tablettes (max-width: 768px) */
 @media (max-width: 768px) {
   body {
     padding: 0 10px;
+    overflow-x: hidden; 
   }
   .header-container {
     padding: 0 10px;
@@ -595,6 +627,11 @@
     max-width: 100%;
   }
   
+   /* Pour le container du calendrier et des actualités, on passe en colonne */
+   .events-news-container {
+    flex-direction: column;
+  }
+
   /* Réduction des tailles de police */
   h1 {
     font-size: 2rem;
@@ -623,12 +660,24 @@
   #calendar {
     min-height: 400px;
   }
+  #actualites-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-x: visible;
+  }
 }
+
+
+/*-------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------*/
+
 
 /* Responsive pour mobiles (max-width: 480px) */
 @media (max-width: 480px) {
   body {
     padding: 0 5px;
+    overflow-x: hidden;
   }
   .header-container {
     padding: 0 5px;
@@ -641,6 +690,11 @@
     margin: 5px 0;
   }
   
+   /* Pour le container du calendrier et des actualités, on passe en colonne */
+   .events-news-container {
+    flex-direction: column;
+  }
+
   /* Réduction des espacements pour les sections */
   .events-news-container,
   .club-home,
@@ -677,41 +731,27 @@
   
   /* Ajustement de la hauteur du calendrier */
   #calendar {
-    min-height: 300px;
+    min-height:350px;
   }
-}
-/* Styles de base pour le burger menu */
-.burger-menu {
-  background: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: none; /* Masqué par défaut sur desktop */
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 20;
-}
+  }
+  
+  /* Conserver le comportement par défaut pour les articles (display: block) */
+  .actu-item {
+    margin-bottom: 15px;
+  }  
 
-/* Les 3 barres du burger */
-.burger-menu span {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: #003366;
-  margin: 4px 0;
-  border-radius: 1px;
-}
+
+
+/*-------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------*/
 
 /* Menu responsive : masquer le menu classique sur mobile */
 @media (max-width: 768px) {
   .burger-menu {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   /* Masquer le menu horizontal par défaut */
   .menu ul {
@@ -720,7 +760,7 @@
     gap: 10px;
     background: #003366;
     position: absolute;
-    top: 60px; /* Ajustez selon la hauteur du header */
+    top: 20px; /* Ajustez selon la hauteur du header */
     right: 0;
     width: 200px;
     padding: 10px;
