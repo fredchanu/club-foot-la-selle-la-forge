@@ -22,9 +22,8 @@ collections:
     create: true
     format: json
     # Utilise un préfixe fixe et le champ slug fourni par l'utilisateur
-    slug: "convocation-{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "convocation-{{year}}-{{month}}-{{day}}"
     fields:
-      - { name: "slug", label: "Slug", widget: "string", hint: "Un identifiant court (ex: u7-match1)" }
       - { name: "equipe", label: "Équipe (ex: U7, U9, U14)", widget: "string" }
       - { name: "match_title", label: "Titre du match", widget: "string" }
       - { name: "match_date", label: "Date du match", widget: "string", hint: "Ex : 12 septembre 2025" }
