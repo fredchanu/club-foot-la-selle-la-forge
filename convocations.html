@@ -13,113 +13,174 @@
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
   <!-- FullCalendar JS -->
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+  <style>
+    /* Quelques styles supplémentaires pour le module convocation côté client */
+    .convocation-section select {
+      display: block;
+      margin: 20px auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .convocation-item {
+      background: #fff;
+      border: 2px solid #ff6600;
+      border-radius: 5px;
+      padding: 15px;
+      margin: 15px 0;
+    }
+    .convocation-item h3 {
+      color: #003366;
+    }
+  </style>
 </head>
 <body>
   <!-- HEADER / MENU DE NAVIGATION -->
   <header class="header-fix">
     <div class="header-container">
-       <!-- Bouton burger pour mobile -->
-    <button class="burger-menu" aria-label="Ouvrir le menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    
-    <nav class="menu">
-      <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="galerie.html">Galerie</a></li>
-        <li><a href="club.html">Club</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a class="btn-convocation" href="convocations.html">Convocation</a>
-        </li>
-      </ul>
-    </nav>
-    <a href="admin/index.html" class="login-link" target="_blank">
+      <!-- Bouton burger pour mobile -->
+      <button class="burger-menu" aria-label="Ouvrir le menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <nav class="menu">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="galerie.html">Galerie</a></li>
+          <li><a href="club.html">Club</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a class="btn-convocation" href="convocations.html">Convocation</a></li>
+        </ul>
+      </nav>
+      <a href="admin/index.html" class="login-link" target="_blank">
         <div class="login-icon">
           <i class="fa fa-user"></i>
         </div>
       </a>
+    </div>
   </header>
 
   <!-- Contenu principal -->
   <main class="main-content">
     <section class="convocation-section">
       <h2>Convocations</h2>
+      <!-- Menu déroulant pour sélectionner la catégorie d'équipe -->
+      <select id="categorySelect">
+        <option value="">-- Sélectionnez une équipe --</option>
+      </select>
       <div id="convocations-container"></div>
-      <script>
-        // Chemin vers le manifeste JSON des convocations
-        const manifestUrl = '/convocations.json';
-    
-        // Sélectionnez le conteneur où les convocations seront injectées
-        const container = document.getElementById('convocations-container');
-    
-        // Charger le manifeste JSON
-        fetch(manifestUrl)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Erreur réseau lors du chargement du manifeste JSON');
-            }
-            return response.json();
-          })
-          .then(convocations => {
-            // Pour chaque convocation listée dans le manifeste
-            convocations.forEach(convocation => {
-              // Créez un élément article pour la convocation
-              const convElem = document.createElement('article');
-              convElem.className = 'convocation-item';
-    
-              // Ajoutez le titre de la convocation
-              const titleElem = document.createElement('h3');
-              titleElem.textContent = convocation.title;
-              convElem.appendChild(titleElem);
-    
-              // Charger le fichier JSON de la convocation
-              fetch(convocation.file)
-                .then(resp => {
-                  if (!resp.ok) {
-                    throw new Error(`Erreur réseau lors du chargement du fichier ${convocation.file}`);
-                  }
-                  return resp.json();
-                })
-                .then(convData => {
-                  // Préparer le contenu HTML pour la convocation
-                  // Supposons que convData contient : date, heure, equipe, et joueurs (tableau)
-                  const contentHTML = `
-                    <p><strong>Date :</strong> ${convData.date}</p>
-                    <p><strong>Heure :</strong> ${convData.heure}</p>
-                    <p><strong>Équipe :</strong> ${convData.equipe}</p>
-                    <p><strong>Joueurs convoqués :</strong> ${Array.isArray(convData.joueurs) ? convData.joueurs.join(', ') : convData.joueurs}</p>
-                  `;
-                  const contentElem = document.createElement('div');
-                  contentElem.innerHTML = contentHTML;
-                  convElem.appendChild(contentElem);
-                })
-                .catch(err => {
-                  console.error('Erreur lors du chargement de la convocation:', err);
-                  const errorElem = document.createElement('p');
-                  errorElem.textContent = 'Erreur lors du chargement du contenu.';
-                  convElem.appendChild(errorElem);
-                })
-                .finally(() => {
-                  // Ajoutez la convocation complète au conteneur principal
-                  container.appendChild(convElem);
-                });
-            });
-          })
-          .catch(error => {
-            console.error('Erreur lors du chargement du manifeste:', error);
-            if (container) {
-              container.innerHTML = '<p>Erreur lors du chargement des convocations.</p>';
-            }
-          });
-      </script>
     </section>
   </main>
 
   <footer class="footer">
     <p>© 2025 AS La Selle La Forge. Tous droits réservés.</p>
   </footer>
+
+  <script>
+    // Chemin vers le manifeste JSON des convocations
+    const manifestUrl = '/convocations.json';
+    const container = document.getElementById('convocations-container');
+    const categorySelect = document.getElementById('categorySelect');
+    
+    // Charger le manifeste JSON
+    fetch(manifestUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erreur réseau lors du chargement du manifeste JSON');
+        }
+        return response.json();
+      })
+      .then(convocations => {
+        // Organiser les convocations par catégorie
+        const convocationsByCategory = {};
+        convocations.forEach(conv => {
+          if (!convocationsByCategory[conv.category]) {
+            convocationsByCategory[conv.category] = [];
+          }
+          convocationsByCategory[conv.category].push(conv);
+        });
+        
+        // Remplir le menu déroulant avec les catégories
+        Object.keys(convocationsByCategory).forEach(category => {
+          const option = document.createElement('option');
+          option.value = category;
+          option.textContent = category;
+          categorySelect.appendChild(option);
+        });
+        
+        // Fonction d'affichage des convocations pour une catégorie donnée
+        function renderCategory(category) {
+          container.innerHTML = '';
+          const convs = convocationsByCategory[category] || [];
+          if (convs.length === 0) {
+            container.innerHTML = '<p>Aucune convocation pour cette équipe.</p>';
+            return;
+          }
+          convs.forEach(convocation => {
+            // Créer un article pour chaque convocation
+            const convElem = document.createElement('article');
+            convElem.className = 'convocation-item';
+    
+            // Titre de la convocation
+            const titleElem = document.createElement('h3');
+            titleElem.textContent = convocation.title;
+            convElem.appendChild(titleElem);
+    
+            // Charger le fichier JSON de la convocation
+            fetch(convocation.file)
+              .then(resp => {
+                if (!resp.ok) {
+                  throw new Error(`Erreur lors du chargement du fichier ${convocation.file}`);
+                }
+                return resp.json();
+              })
+              .then(convData => {
+                // Supposons que convData contient : date, heure, equipe, et joueurs (tableau)
+                const contentHTML = `
+                  <p><strong>Date :</strong> ${convData.date}</p>
+                  <p><strong>Heure :</strong> ${convData.heure}</p>
+                  <p><strong>Équipe :</strong> ${convData.equipe}</p>
+                  <p><strong>Joueurs convoqués :</strong> ${Array.isArray(convData.joueurs) ? convData.joueurs.join(', ') : convData.joueurs}</p>
+                `;
+                const contentElem = document.createElement('div');
+                contentElem.innerHTML = contentHTML;
+                convElem.appendChild(contentElem);
+              })
+              .catch(err => {
+                console.error('Erreur lors du chargement de la convocation:', err);
+                const errorElem = document.createElement('p');
+                errorElem.textContent = 'Erreur lors du chargement du contenu.';
+                convElem.appendChild(errorElem);
+              })
+              .finally(() => {
+                container.appendChild(convElem);
+              });
+          });
+        }
+    
+        // Mettre à jour l'affichage lors de la sélection d'une catégorie
+        categorySelect.addEventListener('change', function() {
+          const selectedCategory = categorySelect.value;
+          if (selectedCategory) {
+            renderCategory(selectedCategory);
+          } else {
+            container.innerHTML = '<p>Veuillez sélectionner une équipe.</p>';
+          }
+        });
+    
+        // Optionnel : afficher la première catégorie par défaut
+        const firstCategory = Object.keys(convocationsByCategory)[0];
+        if (firstCategory) {
+          categorySelect.value = firstCategory;
+          renderCategory(firstCategory);
+        }
+      })
+      .catch(error => {
+        console.error('Erreur lors du chargement du manifeste:', error);
+        container.innerHTML = '<p>Erreur lors du chargement des convocations.</p>';
+      });
+  </script>
 
   <script src="assets/js/main.js"></script>
 </body>
