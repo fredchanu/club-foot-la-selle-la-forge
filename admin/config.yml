@@ -27,18 +27,13 @@ collections:
       - { name: "match_date", label: "Date du match", widget: "string", hint: "Exemple : 12 septembre 2025" }
       - { name: "match_time", label: "Heure du match", widget: "string", hint: "Exemple : 20h00" }
       - { name: "equipe", label: "Équipe (ex: U7, U9, U14, etc.)", widget: "string" }
-      - label: "Liste des joueurs disponibles"
-        name: "available_joueurs"
+      - label: "Liste des joueurs"
+        name: "joueurs"
         widget: "list"
         fields:
           - { name: "nom", label: "Nom du joueur", widget: "string" }
-          - { name: "image", label: "Image du joueur", widget: "image" }
-      - label: "Liste des joueurs convoqués"
-        name: "convoked_joueurs"
-        widget: "list"
-        fields:
-          - { name: "nom", label: "Nom du joueur", widget: "string" }
-          - { name: "image", label: "Image du joueur", widget: "image" }
+          - { name: "prenom", label: "Prénom du joueur", widget: "string" }
+          - { name: "convoque", label: "Convoqué ?", widget: "boolean", default: false }
 
 
   - name: "galerie"
