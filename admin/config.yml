@@ -21,7 +21,6 @@ collections:
     folder: "content/convocations"
     create: true
     format: json
-    # Utilise un préfixe fixe et le champ slug fourni par l'utilisateur
     slug: "convocation-{{year}}-{{month}}-{{day}}"
     fields:
       - { name: "equipe", label: "Équipe (ex: U7, U9, U14)", widget: "string" }
