@@ -9,12 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <!-- FullCalendar CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
-  <!-- FullCalendar JS -->
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
   <style>
-    /* Quelques styles supplémentaires pour le module convocation côté client */
+    /* Styles spécifiques pour le module convocation côté client */
     .convocation-section select {
       display: block;
       margin: 20px auto;
@@ -31,19 +27,32 @@
     .convocation-item h3 {
       color: #003366;
     }
+    .player-card {
+      background: #ff6600;
+      color: #fff;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+    }
+    .player-card img {
+      border-radius: 50%;
+      margin-right: 10px;
+      width: 40px;
+      height: 40px;
+    }
   </style>
 </head>
 <body>
   <!-- HEADER / MENU DE NAVIGATION -->
   <header class="header-fix">
     <div class="header-container">
-      <!-- Bouton burger pour mobile -->
       <button class="burger-menu" aria-label="Ouvrir le menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
-      
       <nav class="menu">
         <ul>
           <li><a href="index.html">Accueil</a></li>
@@ -65,8 +74,8 @@
   <main class="main-content">
     <section class="convocation-section">
       <h2>Convocations</h2>
-      <!-- Menu déroulant pour sélectionner la catégorie d'équipe -->
-      <select id="categorySelect">
+      <!-- Menu déroulant pour sélectionner l'équipe -->
+      <select id="teamSelect">
         <option value="">-- Sélectionnez une équipe --</option>
       </select>
       <div id="convocations-container"></div>
@@ -78,102 +87,81 @@
   </footer>
 
   <script>
-    // Chemin vers le manifeste JSON des convocations
+    // Chemin vers le manifeste généré
     const manifestUrl = '/convocations.json';
     const container = document.getElementById('convocations-container');
-    const categorySelect = document.getElementById('categorySelect');
-    
-    // Charger le manifeste JSON
+    const teamSelect = document.getElementById('teamSelect');
+
     fetch(manifestUrl)
       .then(response => {
         if (!response.ok) {
-          throw new Error('Erreur réseau lors du chargement du manifeste JSON');
+          throw new Error('Erreur lors du chargement du manifeste JSON');
         }
         return response.json();
       })
       .then(convocations => {
-        // Organiser les convocations par catégorie
-        const convocationsByCategory = {};
-        convocations.forEach(conv => {
-          if (!convocationsByCategory[conv.category]) {
-            convocationsByCategory[conv.category] = [];
-          }
-          convocationsByCategory[conv.category].push(conv);
-        });
-        
-        // Remplir le menu déroulant avec les catégories
-        Object.keys(convocationsByCategory).forEach(category => {
+        // Extraire les équipes uniques depuis les convocations
+        const teams = [...new Set(convocations.map(c => c.equipe))];
+
+        // Remplir le menu déroulant avec les équipes
+        teams.forEach(team => {
           const option = document.createElement('option');
-          option.value = category;
-          option.textContent = category;
-          categorySelect.appendChild(option);
+          option.value = team;
+          option.textContent = team;
+          teamSelect.appendChild(option);
         });
-        
-        // Fonction d'affichage des convocations pour une catégorie donnée
-        function renderCategory(category) {
+
+        // Fonction pour afficher la convocation d'une équipe donnée
+        function renderTeam(team) {
           container.innerHTML = '';
-          const convs = convocationsByCategory[category] || [];
-          if (convs.length === 0) {
+          // Filtrer les convocations pour l'équipe sélectionnée
+          const teamConvocations = convocations.filter(c => c.equipe === team);
+          if (teamConvocations.length === 0) {
             container.innerHTML = '<p>Aucune convocation pour cette équipe.</p>';
             return;
           }
-          convs.forEach(convocation => {
-            // Créer un article pour chaque convocation
-            const convElem = document.createElement('article');
-            convElem.className = 'convocation-item';
-    
-            // Titre de la convocation
-            const titleElem = document.createElement('h3');
-            titleElem.textContent = convocation.title;
-            convElem.appendChild(titleElem);
-    
-            // Charger le fichier JSON de la convocation
-            fetch(convocation.file)
-              .then(resp => {
-                if (!resp.ok) {
-                  throw new Error(`Erreur lors du chargement du fichier ${convocation.file}`);
-                }
-                return resp.json();
-              })
-              .then(convData => {
-                // Supposons que convData contient : date, heure, equipe, et joueurs (tableau)
-                const contentHTML = `
-                  <p><strong>Date :</strong> ${convData.date}</p>
-                  <p><strong>Heure :</strong> ${convData.heure}</p>
-                  <p><strong>Équipe :</strong> ${convData.equipe}</p>
-                  <p><strong>Joueurs convoqués :</strong> ${Array.isArray(convData.joueurs) ? convData.joueurs.join(', ') : convData.joueurs}</p>
-                `;
-                const contentElem = document.createElement('div');
-                contentElem.innerHTML = contentHTML;
-                convElem.appendChild(contentElem);
-              })
-              .catch(err => {
-                console.error('Erreur lors du chargement de la convocation:', err);
-                const errorElem = document.createElement('p');
-                errorElem.textContent = 'Erreur lors du chargement du contenu.';
-                convElem.appendChild(errorElem);
-              })
-              .finally(() => {
-                container.appendChild(convElem);
+          teamConvocations.forEach(conv => {
+            const article = document.createElement('article');
+            article.className = 'convocation-item';
+
+            // Affichage des informations du match
+            article.innerHTML = `
+              <h3>${conv.match_title}</h3>
+              <p><strong>Date :</strong> ${conv.match_date}</p>
+              <p><strong>Heure :</strong> ${conv.match_time}</p>
+            `;
+
+            // Filtrer les joueurs dont "convoque" est true
+            const playersConvoques = conv.joueurs.filter(j => j.convoque);
+            if (playersConvoques.length > 0) {
+              const playersDiv = document.createElement('div');
+              playersConvoques.forEach(player => {
+                const playerCard = document.createElement('div');
+                playerCard.className = 'player-card';
+                playerCard.innerHTML = `<img src="${player.image}" alt="${player.nom}"/> ${player.nom}`;
+                playersDiv.appendChild(playerCard);
               });
+              article.appendChild(playersDiv);
+            } else {
+              article.innerHTML += '<p>Aucun joueur convoqué.</p>';
+            }
+            container.appendChild(article);
           });
         }
-    
-        // Mettre à jour l'affichage lors de la sélection d'une catégorie
-        categorySelect.addEventListener('change', function() {
-          const selectedCategory = categorySelect.value;
-          if (selectedCategory) {
-            renderCategory(selectedCategory);
+
+        teamSelect.addEventListener('change', function() {
+          const selectedTeam = teamSelect.value;
+          if (selectedTeam) {
+            renderTeam(selectedTeam);
           } else {
             container.innerHTML = '<p>Veuillez sélectionner une équipe.</p>';
           }
         });
-    
-        // Optionnel : afficher la première catégorie par défaut
-        const firstCategory = Object.keys(convocationsByCategory)[0];
-        if (firstCategory) {
-          categorySelect.value = firstCategory;
-          renderCategory(firstCategory);
+
+        // Afficher la première équipe par défaut, si présente
+        if (teams.length > 0) {
+          teamSelect.value = teams[0];
+          renderTeam(teams[0]);
         }
       })
       .catch(error => {
