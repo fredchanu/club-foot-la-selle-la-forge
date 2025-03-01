@@ -523,60 +523,82 @@
 /*------------------------------------------------*/
 
 /* Page convocation */
+
 .convocation-section {
-  background: #fff;
+  background: #ffffff;
   padding: 2rem;
   margin: 2rem auto;
   max-width: 1200px;
   border-radius: 20px;
-  border: 2px solid #003366;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   text-align: center;
+  border: none;
 }
+
 .convocation-section h2 {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.5rem;
+  font-size: 3rem;
   color: #003366;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Style modern pour le menu déroulant */
+.convocation-section select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 2px solid #003366;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  margin: 20px auto;
+  background: #fff url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDEyIDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBvbHlnb24gcG9pbnRzPSIwLDAgNiw4IDEyLDAiIGZpbGw9IiMwMDM2NjQiIC8+PC9zdmc+') no-repeat right 10px center;
+  background-size: 12px;
+}
+
+/* Carte de convocation modernisée */
+.convocation-item {
+  background: linear-gradient(135deg, #ff6600, #ff9933);
+  border: none;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  color: #fff;
+}
+
+.convocation-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
 }
 
 .convocation-item h3 {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.8rem;
-  color: #003366;
-  margin-bottom: 0.5rem;
-}
-.convocation-item p {
-  font-family: 'Roboto', sans-serif;
-  margin: 0.5rem 0;
-  color: #333;
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
-.convocation-section select {
-  display: block;
-  margin: 20px auto;
-  padding: 10px;
-  font-size: 16px;
-}
-.convocation-item {
-  background: #fff;
-  border: 2px solid #ff6600;
-  border-radius: 20px;
-  padding: 15px;
-  margin: 15px 0;
-}
-.convocation-item h3 {
-  color: #003366;
-}
+/* Style pour les cartes joueurs */
 .player-card {
-  background: #ff6600;
+  background: #003366;
   color: #fff;
   padding: 10px;
   margin: 10px 0;
-  border-radius: 5px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
+
+.player-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+
 
 
 /*-------------------------------------------------------------------------*/
