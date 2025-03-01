@@ -21,14 +21,4 @@ body {
     color: #003366;
     margin: 0;
   }
-  .nc-root {
-  padding-top: 60px; /* Ajustez la valeur en fonction de vos besoins */
-  }
-  .nc-root .nc-header {
-  height: 50px; 
-  position: relative;
-  }
-  .notif__container {
-   border: #ff6600 1px solid;
-   border-radius: 5px;
-  }
+      
