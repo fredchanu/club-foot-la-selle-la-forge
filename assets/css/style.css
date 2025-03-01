@@ -560,8 +560,8 @@
 }
 .convocation-item {
   background: #fff;
-  border: 20px solid #ff6600;
-  border-radius: 5px;
+  border: 2px solid #ff6600;
+  border-radius: 20px;
   padding: 15px;
   margin: 15px 0;
 }
