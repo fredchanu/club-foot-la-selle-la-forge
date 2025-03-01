@@ -1,7 +1,7 @@
 {
   "joueurs": [
     {
-      "convoque": false,
+      "convoque": true,
       "nom": "joueur ",
       "prenom": "1"
     },
@@ -11,7 +11,7 @@
       "nom": "joueur"
     },
     {
-      "convoque": false,
+      "convoque": true,
       "nom": "joueur",
       "prenom": "3"
     },
@@ -21,7 +21,7 @@
       "prenom": "4"
     },
     {
-      "convoque": false,
+      "convoque": true,
       "nom": "joueur",
       "prenom": "5"
     }
