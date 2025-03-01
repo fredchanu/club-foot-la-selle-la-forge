@@ -104,7 +104,7 @@
               playersConvoques.forEach(player => {
                 const playerCard = document.createElement('div');
                 playerCard.className = 'player-card';
-                playerCard.innerHTML = `alt="${player.nom}"/> ${player.nom}`;
+                playerCard.innerHTML = ` ${player.nom}`;
                 playersDiv.appendChild(playerCard);
               });
               article.appendChild(playersDiv);
