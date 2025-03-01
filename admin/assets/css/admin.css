@@ -22,7 +22,6 @@ body {
     margin: 0;
   }
       
-  #nc-root {
-    display: flex;
-    padding-top: 60px; 
+  #nc-root .nc-editor-page .nc-header{
+     display: none !important;
   }
