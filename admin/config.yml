@@ -35,7 +35,6 @@ collections:
         summary: "{{nom}} - Convoqué : {{convoque}}"
         fields:
           - { name: "nom", label: "Nom du joueur", widget: "string" }
-          - { name: "image", label: "Image du joueur", widget: "image" }
           - { name: "convoque", label: "Convoqué ?", widget: "boolean", default: false }
 
 
